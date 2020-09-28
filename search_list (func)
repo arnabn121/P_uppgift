@@ -1,11 +1,9 @@
 def search_list():
-    f = open("names_file.txt", "r", encoding="utf-8")
-
-
-    names_of_lists = f.readlines()
+    with open("names_file.txt", "r+", encoding="utf-8") as f:
+        names_of_lists = f.readlines()
 
     search_word = input("Visa lista! \n"
-          "Vilket namn på lista letar du efter?: ").upper()
+                            "Vilket namn på lista letar du efter?: ").upper()
     results = []
     index_of_results = []
     n = 1
@@ -17,7 +15,7 @@ def search_list():
             index_of_results.append(n)
             n += 1
     if len(results) == 0:
-        print(search_word + " listan existerar inte")
+            print(search_word + " listan existerar inte")
 
     else:
         print("Det finns flera listor som matchar din sökning:")
