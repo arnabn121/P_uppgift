@@ -1,0 +1,35 @@
+import sys as sys
+from create_list import *
+from search_list import *
+
+
+def option():
+    possible_choices = ["N", "I", "S", "A", "Z"]
+    while True:
+        print("Ditt val: ", end="")
+        option = input().upper()
+        if option.isnumeric() or option not in possible_choices:
+            print("Felaktig input")
+            continue
+        break
+    return option
+
+
+def selected_choice(option):
+    if option == "Z":
+        print("Du har valt att avsluta")
+        sys.exit(0)
+    if option == "N":
+        create_list()
+    if option == "I":
+        search_list()
+
+
+print("Välkommen till Packningsprogrammet!" "\n"
+      "N Ny Packlista" "\n"
+      "I Visa innehåll i lista" "\n"
+      "S Lägg till sak till en lista" "\n"
+      "A Visa alla kommande listor" "\n"
+      "Z Avsluta")
+
+selected_choice(option())
