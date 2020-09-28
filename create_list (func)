@@ -1,18 +1,16 @@
 def create_list():
     list_name = input("Vad ska listan heta?: ")
 
-    f = open("names_file.txt", "w+", encoding="utf-8")
+    f = open("names_file.txt", "r+", encoding="utf-8")
     names_of_lists = f.readlines()
 
     while list_name.upper() in names_of_lists:
         list_name = input("Det finns redan en lista som heter " + list_name + "\n"
                                                                               "Ange ett annat namn: ")
 
-    f.write(list_name)
-
-
-
+    f.write(list_name.upper() + "\n")
     file = open(list_name + ".txt", "w+")
+
 
     i = 1
     print("Avsluta genom att skriva 0")
