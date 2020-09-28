@@ -1,0 +1,39 @@
+def search_list():
+    f = open("names_file.txt", "r", encoding="utf-8")
+
+
+    names_of_lists = f.readlines()
+
+    search_word = input("Visa lista! \n"
+          "Vilket namn på lista letar du efter?: ").upper()
+    results = []
+    index_of_results = []
+    n = 1
+
+    for i in names_of_lists:
+
+        if search_word in i:
+            results.append(i)
+            index_of_results.append(n)
+            n += 1
+    if len(results) == 0:
+        print(search_word + " listan existerar inte")
+
+    else:
+        print("Det finns flera listor som matchar din sökning:")
+        k = 1
+        for j in results:
+            print(str(k) + ". " + j)
+            k += 1
+        list_number = 0
+        while True:
+            try:
+                list_number = int(input("Ange siffran på listan du vill se: "))
+            except ValueError:
+                print("Felaktig input, försök igen")
+                continue
+            if list_number < 1 or list_number > len(results):
+                print("Felaktig input")
+                continue
+            break
+        print(str(list_number) + " och " + str(results[list_number - 1]))
