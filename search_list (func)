@@ -1,26 +1,45 @@
 def search_list():
-    with open("names_file.txt", "r+", encoding="utf-8") as f:
-        names_of_lists = f.readlines()
+    global list_number
+    f = open("names_file.txt", "r+", encoding="utf-8")
+    names_of_lists = f.readlines()
 
+    names_of_lists2 = []
+    for item in names_of_lists:
+        stripped_item = item.strip()
+        names_of_lists2.append(stripped_item)
+
+    # print(names_of_lists2)
     search_word = input("Visa lista! \n"
-                            "Vilket namn på lista letar du efter?: ").upper()
-    results = []
-    index_of_results = []
-    n = 1
+                        "Vilket namn på lista letar du efter?: ").upper()
 
-    for i in names_of_lists:
+    matching_words = []
+    index_of_matching_words = []
+
+    n = 1
+    for i in names_of_lists2:
 
         if search_word in i:
-            results.append(i)
-            index_of_results.append(n)
+            matching_words.append(i)
+            index_of_matching_words.append(n)
             n += 1
-    if len(results) == 0:
-            print(search_word + " listan existerar inte")
 
-    else:
+    #print(len(matching_words))
+    if len(matching_words) == 0:
+        print(search_word + " listan existerar inte")
+
+    if len(matching_words) == 1:
+        with open(matching_words[0] + ".txt", "r+", encoding="utf-8") as f:
+            file = f.readlines()
+        items = []
+        for item in file:
+            items.append(item.strip())
+
+        print(items)
+
+    if len(matching_words) > 1:
         print("Det finns flera listor som matchar din sökning:")
         k = 1
-        for j in results:
+        for j in matching_words:
             print(str(k) + ". " + j)
             k += 1
         list_number = 0
@@ -30,8 +49,16 @@ def search_list():
             except ValueError:
                 print("Felaktig input, försök igen")
                 continue
-            if list_number < 1 or list_number > len(results):
+            if list_number < 1 or list_number > len(matching_words):
                 print("Felaktig input")
                 continue
             break
-        print(str(list_number) + " och " + str(results[list_number - 1]))
+
+    ## with open(str(matching_words[list_number - 1]), "r+", encoding="utf-8") as f:
+    ##     file = f.readlines()
+    ##
+    ## for i in file:
+    ##     print(i)
+
+    ## with open(str(matching_words[list_number-1]+".txt", "r+", encoding= "utf-8") as f:
+    ##    file = f.readlines()
