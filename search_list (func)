@@ -13,14 +13,13 @@ def search_list():
                         "Vilket namn på lista letar du efter?: ").upper()
 
     matching_words = []
-    index_of_matching_words = []
+    
 
     n = 1
     for i in names_of_lists2:
 
         if search_word in i:
             matching_words.append(i)
-            index_of_matching_words.append(n)
             n += 1
 
     if len(matching_words) == 0:
@@ -57,4 +56,4 @@ def search_list():
             for item in file:
                 print(item.strip())
 
-  
+
