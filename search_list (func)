@@ -1,6 +1,6 @@
 def search_list():
     global list_number
-    f = open("names_file.txt", "r+", encoding="utf-8")
+    f = open("names_file.txt", "r+", encoding="latin-1")
     names_of_lists = f.readlines()
 
     names_of_lists2 = []
