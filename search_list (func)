@@ -1,5 +1,5 @@
 def search_list():
-    global list_number
+
     f = open("names_file.txt", "r+", encoding="latin-1")
     names_of_lists = f.readlines()
 
@@ -7,53 +7,51 @@ def search_list():
     for item in names_of_lists:
         stripped_item = item.strip()
         names_of_lists2.append(stripped_item)
-
-    # print(names_of_lists2)
     search_word = input("Visa lista! \n"
                         "Vilket namn på lista letar du efter?: ").upper()
 
-    matching_words = []
-    
+    while True:
 
-    n = 1
-    for i in names_of_lists2:
+        matching_words = []
 
-        if search_word in i:
-            matching_words.append(i)
-            n += 1
+        for i in names_of_lists2:
+            if search_word in i:
+                matching_words.append(i)
 
-    if len(matching_words) == 0:
-        print(search_word + " listan existerar inte")
+        if len(matching_words) == 0:
+            search_word = input(search_word + " listan existerar inte \n"
+                                              "Ange ett nytt sökord:")
+            continue
 
-    if len(matching_words) == 1:
-        with open(matching_words[0] + ".txt", "r+", encoding="latin-1") as f:
-            file = f.readlines()
-        print(matching_words[0] + ":")
-        for item in file:
-            print((item.strip()))
-
-    else:
-        print("Det finns flera listor som matchar din sökning:")
-        k = 1
-        for j in matching_words:
-            print(str(k) + ". " + j)
-            k += 1
-        list_number = 0
-        while True:
-            try:
-                list_number = int(input("Ange siffran på listan du vill se: "))
-            except ValueError:
-                print("Felaktig input, försök igen")
-                continue
-            if list_number < 1 or list_number > len(matching_words):
-                print("Felaktig input")
-                continue
+        if len(matching_words) == 1:
+            with open(matching_words[0] + ".txt", "r+", encoding="latin-1") as f:
+                file = f.readlines()
+            print(matching_words[0] + ":")
+            for item in file:
+                print((item.strip()))
             break
 
-        with open(str(matching_words[list_number - 1]) + ".txt", "r+", encoding="latin-1") as f:
-            file = f.readlines()
-            print(matching_words[list_number - 1] + ":")
-            for item in file:
-                print(item.strip())
+        else:
+            print("Det finns flera listor som matchar din sökning:")
+            k = 1
+            for j in matching_words:
+                print(str(k) + ". " + j)
+                k += 1
+            list_number = 0
+            while True:
+                try:
+                    list_number = int(input("Ange siffran på listan du vill se: "))
+                except ValueError:
+                    print("Felaktig input, försök igen")
+                    continue
+                if list_number < 1 or list_number > len(matching_words):
+                    print("Felaktig input")
+                    continue
+                break
 
-
+            with open(str(matching_words[list_number - 1]) + ".txt", "r+", encoding="latin-1") as f:
+                file = f.readlines()
+                print(matching_words[list_number - 1] + ":")
+                for item in file:
+                    print(item.strip())
+            break
