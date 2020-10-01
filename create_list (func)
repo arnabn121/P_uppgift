@@ -1,60 +1,30 @@
-def change_list():
-    print("Ändra lista! \n"
-          "1. Lägga till föremål i en lista \n"
-          "2. Ta bort föremål i en lista")
-    activity = input("Ditt val: ")
+def create_list():
+    list_name = input("Vad ska listan heta?: ").upper()
+
+    f = open("names_file.txt", "r+", encoding="latin-1")
+
+    names_of_lists = f.readlines()
+
+    names_of_lists2 = []
+    for item in names_of_lists:
+        stripped_item = item.strip()
+        names_of_lists2.append(stripped_item)
+    #print(names_of_lists2)
+
+    while list_name.upper() in names_of_lists2:
+        list_name = input("Det finns redan en lista som heter " + list_name + "\n"
+                                                                           "Ange ett annat namn: ").upper()
+
+    f = open("names_file.txt", "a", encoding="latin-1")
+    f.write(list_name.upper() + "\n")
+    file = open(list_name + ".txt", "w+")
+
+    i = 1
+    print("Avsluta genom att skriva 0")
     while True:
-        try:
-            activity = int(activity)
-        except ValueError:
-            activity = input("Felaktig input, försök igen: ")
-            continue
-        if activity != 1 and activity != 2:
-            activity = input("Felaktig input, försök igen: ")
-            continue
-        break
-
-    if activity == 1:
-        print("Lägga till saker i en lista! \n"
-              "Vilken lista vill du lägga till saker i?")
-        f = open("names_file.txt", "r+", encoding="latin-1")
-        names_of_lists = f.readlines()
-        names_of_lists.pop(0)
-
-        names_of_lists2 = []
-        i = 1
-        for item in names_of_lists:
-            names_of_lists2.append(item.strip())
-            print(str(i) + ". " + item.strip())
-            i += 1
-        numeric_choice = input("Ditt val: ")
-        while True:
-            try:
-                numeric_choice = int(numeric_choice)
-            except ValueError:
-                numeric_choice = input("Felaktig input, försök igen: ")
-                continue
-            if numeric_choice > len(names_of_lists2) or numeric_choice < 0:
-                numeric_choice = input("Felaktig input, försök igen: ")
-                continue
+        item = input("Föremål " + str(i) + ": ")
+        if item == "0":
             break
-        f = open(str(names_of_lists2[numeric_choice - 1]) + ".txt", "r+", encoding="latin-1")
-        file = f.readlines()
-        print("Nuvarande föremål i " + str(names_of_lists2[numeric_choice - 1]) + " :")
-        for item in file:
-            print(item.strip())
-
-        table = open(str(names_of_lists2[numeric_choice - 1]) + ".txt", "a", encoding="latin-1")
-
-        print("Avsluta genom att skriva 0")
-        while True:
-            added_item = input("Vad vill du lägga till?: ")
-            if added_item == "0":
-                table.close()
-                break
-            table.write(added_item)
-            table.write("\n")
-
-    # if activity == 2:
-    #     print("Ta bort saker i en lista! \n"
-    #           "Vilken lista vill du ta bort saker ifrån?")
+        file.write(item + "\n")
+        i += 1
+    print(list_name + " listan har blivit skapad.")
