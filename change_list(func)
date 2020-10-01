@@ -83,29 +83,49 @@ def change_list():
         f = open(names_of_lists[numeric_choice - 1].strip() + ".txt", "r+", encoding="latin-1")
         i = 1
         print("Tar bort föremål från " + names_of_lists[numeric_choice - 1].strip() + ":")
-        removal_list = []
+        items_list = []
         for item in f:
-            removal_list.append(item.strip())
+            items_list.append(item.strip())
             print(str(i) + ". " + item.strip())
             i += 1
-        # print(removal_list)
-        print("Ange siffran för det föremål som ska tas bort. Avsluta genom att skriva 0.")
 
-        removal_number = input("Föremål " + ": ")
-        n = 0
-        for i in range(len(removal_list)):
-            if removal_number == "0":
-                break
+        index_of_removedItem = input("Ange siffran för det föremål som ska tas bort. Avsluta genom att skriva 0. \n"
+              "Föremål: ")
+
+        removal_list = []
+        while True:
             try:
-                removal_number = int(removal_number)
+                index_of_removedItem = int(index_of_removedItem)
             except ValueError:
-                removal_number = input("Felaktig input, försök igen: ")
+                index_of_removedItem = input("Felaktig input, försök igen: ")
                 continue
-            if removal_number < 0 or removal_number > len(removal_list):
-                removal_number = input("Felaktig input, försök igen: ")
+            if index_of_removedItem < 0 or index_of_removedItem>len(items_list):
+                index_of_removedItem = input("Felaktig input, försök igen: ")
                 continue
+            removal_list.append(items_list[index_of_removedItem-1])
+            index_of_removedItem = input("Föremål: ")
+            if index_of_removedItem == "0":
+                break
+        updated_list = [x for x in items_list if x not in removal_list]
 
-            removal_list.pop(removal_number - 1 - n)
-            print(removal_list)
-            n += 1
-            removal_number = input("Föremål" + ": ")
+        f = open(names_of_lists[numeric_choice - 1].strip() + ".txt", "w+", encoding="latin-1")
+
+        for item in updated_list:
+            f.write(item)
+            f.write("\n")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
