@@ -13,13 +13,13 @@ def change_list():
             activity = input("Felaktig input, försök igen: ")
             continue
         break
+    f = open("names_file.txt", "r+", encoding="latin-1")
+    names_of_lists = f.readlines()
+    names_of_lists.pop(0)
 
     if activity == 1:
         print("Lägga till saker i en lista! \n"
               "Vilken lista vill du lägga till saker i?")
-        f = open("names_file.txt", "r+", encoding="latin-1")
-        names_of_lists = f.readlines()
-        names_of_lists.pop(0)
 
         names_of_lists2 = []
         i = 1
@@ -55,6 +55,57 @@ def change_list():
             table.write(added_item)
             table.write("\n")
 
-    # if activity == 2:
-    #     print("Ta bort saker i en lista! \n"
-    #           "Vilken lista vill du ta bort saker ifrån?")
+        print("Uppdaterade listan: ")
+
+        f = open(str(names_of_lists2[numeric_choice - 1]) + ".txt", "r+", encoding="latin-1")
+        file = f.readlines()
+        for item in file:
+            print(item.strip())
+
+    if activity == 2:
+        print("Ta bort saker i en lista! \n"
+              "Vilken lista vill du ta bort saker ifrån?")
+        i = 1
+        for item in names_of_lists:
+            print(str(i) + ". " + item.strip())
+            i += 1
+        numeric_choice = input("Ditt val: ")
+        while True:
+            try:
+                numeric_choice = int(numeric_choice)
+            except ValueError:
+                numeric_choice = input("Felaktig input, försök igen: ")
+                continue
+            if 0 > numeric_choice > len(names_of_lists):
+                numeric_choice = input("Felaktig input, försök igen: ")
+                continue
+            break
+        f = open(names_of_lists[numeric_choice - 1].strip() + ".txt", "r+", encoding="latin-1")
+        i = 1
+        print("Tar bort föremål från " + names_of_lists[numeric_choice - 1].strip() + ":")
+        removal_list = []
+        for item in f:
+            removal_list.append(item.strip())
+            print(str(i) + ". " + item.strip())
+            i += 1
+        # print(removal_list)
+        print("Ange siffran för det föremål som ska tas bort. Avsluta genom att skriva 0.")
+
+        removal_number = input("Föremål " + ": ")
+        n = 0
+        for i in range(len(removal_list)):
+            if removal_number == "0":
+                break
+            try:
+                removal_number = int(removal_number)
+            except ValueError:
+                removal_number = input("Felaktig input, försök igen: ")
+                continue
+            if removal_number < 0 or removal_number > len(removal_list):
+                removal_number = input("Felaktig input, försök igen: ")
+                continue
+
+            removal_list.pop(removal_number - 1 - n)
+            print(removal_list)
+            n += 1
+            removal_number = input("Föremål" + ": ")
