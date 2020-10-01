@@ -1,13 +1,13 @@
 import sys as sys
 from create_list import *
 from search_list import *
-from läggatillsaker import*
-from visakommandelistor import *
+from change_list import *
+
+
+# from visakommandelistor import *
 
 
 def option():
-
-
     possible_choices = ["N", "I", "S", "A", "Z"]
     while True:
         print("Ditt val: ", end="")
@@ -20,8 +20,6 @@ def option():
 
 
 def selected_choice(option):
-
-
     if option == "Z":
         print("Du har valt att avsluta")
         sys.exit(0)
@@ -29,14 +27,15 @@ def selected_choice(option):
         create_list()
     if option == "I":
         search_list()
-        
+    if option == "S":
+        change_list()
 
+while True:
+    print("Välkommen till Packningsprogrammet!" "\n"
+          "N Ny Packlista" "\n"
+          "I Visa innehåll i lista" "\n"
+          "S Ändra i en lista" "\n"
+          "A Visa alla kommande listor" "\n"
+          "Z Avsluta")
 
-print("Välkommen till Packningsprogrammet!" "\n"
-      "N Ny Packlista" "\n"
-      "I Visa innehåll i lista" "\n"
-      "S Lägg till sak till en lista" "\n"
-      "A Visa alla kommande listor" "\n"
-      "Z Avsluta")
-
-selected_choice(option())
+    selected_choice(option())
